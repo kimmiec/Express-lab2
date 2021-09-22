@@ -19,10 +19,10 @@ app.get('/greeting/:name', (req, res) => {
 // tip calculator
 /////////////////////////////////
 
-app.get('/tip/:total/:tipPercentage', (total, tipPercentage) => {
+app.get('/tip/:total/:tipPercentage', (req, res) => {
     // console.log(tipPercentage.params);
-
-    tipPercentage.send(total.params.tipPercentage);
+    var tip = (req.params.tipPercentage / req.params.total) * 100;
+    res.send(`${tip} is your tip`);
 });
 
 /////////////////////////////////
@@ -35,6 +35,7 @@ app.get('/magic/:question', (req, res) => {
 
     res.send(`${req.params.question} <h1> ${answers[Math.floor(Math.random() * answers.length)]}</h1>`);
 });
+
 
 app.listen(port, () =>{
     console.log('listening on port ' + port);
